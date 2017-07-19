@@ -134,12 +134,12 @@ class Net(nn.Module):
         self.conv3_7 = nn.Conv1d(7, 5, 9)
         self.conv3_8 = nn.Conv1d(7, 5, 9)
 
+        # combine 8 leads
 
         self.fc1 = nn.Linear(16*5*5, 120)
 
         self.fc2 = nn.Linear(120, 84)
 
-        self.fc3 = nn.Linear(84, 10)
 
 
     def forward(self, x):
