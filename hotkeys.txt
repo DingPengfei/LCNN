@@ -1,0 +1,13 @@
+Emacs:
+选中：Ctrl + Shift + @
+单行注释：Alt + ;
+关闭所有标签页：C-x C-c
+关闭当前窗口：C-x 0
+分割屏幕：C-x 2;C-x 3;C-x 1
+全选：C-x h
+
+
+Pycharm:
+加断点：Ctrl + F8
+切换标签页： Alt + Left/Right
+
