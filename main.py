@@ -9,9 +9,9 @@ import numpy as np
 import itertools
 
 # Hyper Parameters
-num_epochs = 10
+num_epochs = 5
 batch_size = 512
-learning_rate = 0.001
+learning_rate = 0.0001
 
 # read data
 # @Author: Lv Cheng
@@ -198,23 +198,29 @@ read_data()
 
 # Loss and Optimizer
 losses = []
-criterion = nn.BCELoss
+criterion = nn.BCELoss()
 optimizer = optim.Adam(lcnn.parameters(), lr=learning_rate)
+scheduler = .ExponentialLR(optimizer, gamma=0.1)
 
 # Train the Model
 for epoch in range(num_epochs):
     batch_xs, batch_ys = next_batch(batch_size)
     total_loss = torch.Tensor([0])
+    i = 1
     for data, target in itertools.izip(batch_xs, batch_ys):
         # Forward + Backward + Optimize
         lcnn.zero_grad()
         # optimizer.zero_grad() ???
         outputs = lcnn(data)
+        target = Variable(torch.from_numpy(target).float())
         loss = criterion(outputs, target)
         loss.backward()
-        optimizer.step()
+        scheduler.step()
         total_loss += loss.data
 
+        print ('Epoch [%d/%d] Iter [%d/%d] Loss: %.4f'
+               % (epoch + 1, num_epochs, i, len(batch_xs), loss.data[0]))
+        i = i+1
     losses.append(total_loss)
 
 # Test the Model
